@@ -1,0 +1,23 @@
+class PatternBase(object):
+ def template_method(self):
+  self.step_1()
+  self.step_2()
+  self.step_3()
+
+ def step_1(self):
+  raise NotImplementedError()
+ def step_2(self):
+  raise NotImplementedError()
+ def step_3(self):
+  raise NotImplementedError()
+
+class Pattern(PatternBase):
+ def step_1(self):
+  print ('Первый шаг алгоритма')
+ def step_2(self):
+  print ('Второй шаг алгоритма')
+ def step_3(self):
+  print ('Третий шаг алгоритма')
+
+pattern = Pattern()
+pattern.template_method()

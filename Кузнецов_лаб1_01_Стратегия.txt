@@ -1,0 +1,16 @@
+class Summ:
+ def do_work(self, x, y):
+  return x + y
+class Umnoj:
+ def do_work(self, x, y):
+  return x * y
+class Calculator:
+ def set_strategy(self, strategy):
+  self.strategy = strategy
+ def calculate(self, x, y):
+  print('Результат: ', self.strategy.do_work(x, y))
+calc = Calculator()
+calc.set_strategy(Summ())
+calc.calculate(2, 5)
+calc.set_strategy(Umnoj())
+calc.calculate(2, 5)
