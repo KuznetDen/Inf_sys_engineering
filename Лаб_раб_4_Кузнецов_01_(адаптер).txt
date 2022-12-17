@@ -1,0 +1,36 @@
+# Паттерн (Адаптер)
+
+# Американская вилка
+class Fork_USA:
+    def power_usa(self):
+        print('power on. USA')
+
+# Европейская вилка
+class Fork_EURO:
+    def power_euro(self):
+        print('power on. EURO')
+
+# Американская розетка
+class Rozetka_USA:
+    def __init__(self, fork):
+        self.fork = fork
+    def connect(self):
+        self.fork.power_usa()
+
+# Адаптер
+class Adapter_Euro_to_Usa:
+    def __init__(self):
+        self._fork_euro = Fork_EURO()
+        
+    def power_usa(self):
+        self._fork_euro.power_euro()
+
+# Вставляем американскую вилку в американскую розетку.
+FU = Fork_USA()
+RU = Rozetka_USA(FU)
+RU.connect()
+
+# Вставляем европейскую вилку в американскую розетку используя адаптер.
+AD = Adapter_Euro_to_Usa()
+RU = Rozetka_USA(AD)
+RU.connect()

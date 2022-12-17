@@ -1,0 +1,68 @@
+# Паттерн (Посредник)
+
+class Window_Base(object):
+    def show(self):
+        raise NotImplementedError()
+ 
+    def hide(self):
+        raise NotImplementedError()
+ 
+ 
+class Main_Window(Window_Base):
+    def show(self):
+        print ('Показать главное окно')
+ 
+    def hide(self):
+        print ('Скрыть главное окно')
+ 
+ 
+class Setting_Window(Window_Base):
+    def show(self):
+        print ('Показать окно настроек')
+ 
+    def hide(self):
+        print ('Скрыть окно настроек')
+ 
+ 
+class Help_Window(Window_Base):
+    def show(self):
+        print ('Показать окно справки')
+ 
+    def hide(self):
+        print ('Скрыть окно справки')
+
+# Посредник (Mediator)
+class Window_Mediator(object):
+    def __init__(self):
+        self.windows = dict.fromkeys(['main', 'setting', 'help'])
+ 
+    def show(self, win):
+        for window in self.windows.values():
+            if not window is win:
+                window.hide()
+        win.show()
+ 
+    def set_main(self, win):
+        self.windows['main'] = win
+ 
+    def set_setting(self, win):
+        self.windows['setting'] = win
+ 
+    def set_help(self, win):
+        self.windows['help'] = win
+ 
+ 
+main_win = Main_Window()
+setting_win = Setting_Window()
+help_win = Help_Window()
+ 
+mediator = Window_Mediator()
+mediator.set_main(main_win)
+mediator.set_setting(setting_win)
+mediator.set_help(help_win)
+ 
+main_win.show()             #Показать главное окно
+ 
+mediator.show(setting_win)  #Скрыть главное окно, Скрыть окно справки, Показать окно настроек
+ 
+mediator.show(help_win)     #Скрыть главное окно, Скрыть окно настроек, Показать окно справки
