@@ -1,0 +1,50 @@
+# Паттерн (Итератор)
+
+class Node:
+    def __init__(self, val, left, right):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class Iterator:
+    def __init__(self, root):
+        self.stack = []  
+        self.root = root
+
+    def Run(self):
+        node = self.root
+        while node.left:
+            self.stack.append(node)
+            node = node.left
+
+        # начало с левого узла
+        while node:
+            print(node.val)
+            node = self.Next(node)
+
+    def Next(self, node):
+        node = node.right
+
+        if not self.stack and not node:
+            return None
+
+        while node:
+            self.stack.append(node)
+            node = node.left
+
+        return self.stack.pop()
+
+if __name__ == '__main__':
+    n12 = Node(12, None, None)
+    n11 = Node(11, None, n12)
+    n9 = Node(9, None, None)
+    n10 = Node(10, n9, n11)
+    n15 = Node(1, None, None)
+    n13 = Node(13, n10, n15)
+    n5 = Node(5, None, None)
+    n3 = Node(3, None, n5)
+    n7 = Node(7, n3, n13)
+
+    iterat = Iterator(n7)
+    iterat.Run()

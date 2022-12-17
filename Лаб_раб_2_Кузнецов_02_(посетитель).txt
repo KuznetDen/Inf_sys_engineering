@@ -1,0 +1,41 @@
+# Паттерн (Посетитель)
+
+class FruitVisitor(object):
+    def draw(self, fruit):
+        methods = {Apple:self.draw_apple, Orange:self.draw_orange,}
+        draw = methods.get(type(fruit), self.draw_unknown)
+        draw(fruit)
+
+    def draw_apple(self, fruit):
+        print ('Яблоко')
+
+    def draw_orange(self, fruit):
+        print ('Апельсин')
+
+    def draw_unknown(self, fruit):
+        print ('Фрукт')
+
+
+class Fruit(object):
+    def draw(self, visitor):
+        visitor.draw(self)
+
+class Apple(Fruit):
+    ('Яблоко')
+
+class Orange(Fruit):
+    ('Апельсин')
+
+class Banana(Fruit):
+    ('Банан')
+
+visitor = FruitVisitor()
+
+apple = Apple()
+apple.draw(visitor)
+
+orange = Orange()
+orange.draw(visitor)
+
+banana = Banana()
+banana.draw(visitor)
