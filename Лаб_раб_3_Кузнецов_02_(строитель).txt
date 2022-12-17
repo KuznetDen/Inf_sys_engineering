@@ -1,0 +1,66 @@
+# Паттерн (Строитель)
+
+class Builder(object):
+    def build_body(self):
+        raise NotImplementedError()
+ 
+    def build_lens(self):
+        raise NotImplementedError()
+ 
+    def build_battery(self):
+        raise NotImplementedError()
+ 
+    def create_minilazer(self):
+        raise NotImplementedError()
+ 
+ 
+class MiniLazer(object): #(MiniLazer)
+    ('Карманный лазер')
+    def __init__(self, body, lens, battery):
+        self._ray = False #( shine - ray)
+        self._body = body
+        self._lens = lens
+        self._battery = battery
+ 
+    def on(self):
+        self._ray = True
+ 
+    def off(self):
+        self._ray = False
+ 
+    def __str__(self):
+        ray = 'on' if self._ray else 'off'
+        return 'MiniLaser [%s]' % ray
+ 
+ 
+class Lens(object):
+    ('Линза')
+
+class Body(object):
+    ('Корпус')
+
+class Battery(object):
+    ('Батарейка')
+
+class LazerBuilder(Builder):
+    def build_body(self):
+        return Body()
+ 
+    def build_battery(self):
+        return Battery()
+ 
+    def build_lens(self):
+        return Lens()
+ 
+    def create_minilazer(self):
+        body = self.build_body()
+        lens = self.build_lens()
+        battery = self.build_battery()
+        return MiniLazer(body, lens, battery)
+ 
+ 
+builder = LazerBuilder()
+minilazer = builder.create_minilazer()
+minilazer.off()
+
+print (minilazer) 
